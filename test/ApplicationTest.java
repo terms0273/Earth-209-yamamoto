@@ -47,8 +47,8 @@ public class ApplicationTest {
      * 　失敗したらエラー表示
      */
     @Test
-    public void testLoginPage() {
-        Content html = views.html.loginpage.render(form);
+    public void testLoginRender() {
+        Content html = views.html.loginrender.render();
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LoginPage");
         assertThat(contentAsString(html)).contains("ID");
@@ -66,17 +66,18 @@ public class ApplicationTest {
      */
     @Test
     public void testLogoutPage() {
-        Content html = views.html.logoutpage.render("",);
+        Content html = views.html.logoutpage.render();
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LogoutPage");
     }
     
     /**
      * ユーザー登録画面表示
+     *  ID,UserName,Passwordの入力フォーム表示
      */
     @Test
     public void testSignUpPage() {
-        Content html = views.html.signuppage.render("",);
+        Content html = views.html.signuppage.render();
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("SignUpPage");
         assertThat(contentAsString(html)).contains("ID");
@@ -89,7 +90,7 @@ public class ApplicationTest {
      */
     @Test
     public void testEditPage() {
-        Content html = views.html.editpage.render("",);
+        Content html = views.html.editpage.render();
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("EditPage");
         assertThat(contentAsString(html)).contains("ID");
@@ -98,12 +99,15 @@ public class ApplicationTest {
     
     /**
      * ユーザー編集画面表示(パスワード)
+     * 　現在のパスワード
+     * 　新規のパスワード２回
+     * 　入力するフォームを表示
      */
     @Test
     public void testEditPassPage() {
-        Content html = views.html.editpasspage.render("",);
+        Content html = views.html.editpasspage.render();
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("SignUpPage");
+        assertThat(contentAsString(html)).contains("EditpassPage");
         assertThat(contentAsString(html)).contains("OldPassword");
         assertThat(contentAsString(html)).contains("NewPassword");
         assertThat(contentAsString(html)).contains("again");

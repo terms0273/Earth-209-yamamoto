@@ -1,3 +1,6 @@
+package controllers;
+
+import .*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +28,7 @@ import static org.fest.assertions.Assertions.*;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class ApplicationTest {
+public class LoginTest {
 
     @Test
     public void simpleCheck() {
@@ -40,73 +43,20 @@ public class ApplicationTest {
         assertThat(contentAsString(html)).contains("Your new application is ready.");
     }
     
-    
     /**
-     * ログイン画面表示
-     * 　ログイン成功したらメイン画面へ
-     * 　失敗したらエラー表示
+     * ログインを表示させるメソッド
      */
-    @Test
-    public void testLoginPage() {
-        Content html = views.html.loginpage.render(form);
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("LoginPage");
-        assertThat(contentAsString(html)).contains("ID");
-        assertThat(contentAsString(html)).contains("UserName");
-        assertThat(contentAsString(html)).contains("Password");
-        /**
-         * 新規登録画面へ遷移するコメント表示
-         */
-        assertThat(contentAsString(html)).contains("SignUp");
+    
+    public void testLoginPage {
+        Result result = route(LoginPage(POST,"/"));
+        
     }
     
-    /**
-     * ログアウト画面表示
-     * 　確認画面表示
-     */
-    @Test
-    public void testLogoutPage() {
-        Content html = views.html.logoutpage.render("",);
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("LogoutPage");
-    }
     
-    /**
-     * ユーザー登録画面表示
-     */
-    @Test
-    public void testSignUpPage() {
-        Content html = views.html.signuppage.render("",);
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("SignUpPage");
-        assertThat(contentAsString(html)).contains("ID");
-        assertThat(contentAsString(html)).contains("UserName");
-        assertThat(contentAsString(html)).contains("Password");
-    }
     
-    /**
-     * ユーザー編集画面表示(ログインID、ユーザ名)
-     */
-    @Test
-    public void testEditPage() {
-        Content html = views.html.editpage.render("",);
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("EditPage");
-        assertThat(contentAsString(html)).contains("ID");
-        assertThat(contentAsString(html)).contains("UserName");
-    }
     
-    /**
-     * ユーザー編集画面表示(パスワード)
-     */
-    @Test
-    public void testEditPassPage() {
-        Content html = views.html.editpasspage.render("",);
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("SignUpPage");
-        assertThat(contentAsString(html)).contains("OldPassword");
-        assertThat(contentAsString(html)).contains("NewPassword");
-        assertThat(contentAsString(html)).contains("again");
-    }
-
+    
+    
+    
+    
 }
