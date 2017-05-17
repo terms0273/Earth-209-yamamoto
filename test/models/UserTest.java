@@ -34,27 +34,35 @@ public class UserTest {
     @Before
     public void createDb() {
         start(fakeApplication(inMemoryDatabase()));
-        //Userメソッドに値を渡す
+        /**
+         * Userメソッドに値を渡す
+         */
         User user = new User("209", "yamamoto" , "aaa");
-        //DBに保存
+        /**
+         * DBに保存
+         */
         user.save();
     }
     
     @Test
     public void findById() {
-        //Userメソッドを呼ぶ
+        /**
+         * Userメソッドを呼ぶ
+         */
         User user = new User();
-        //Userメソッド内のidを見る
+        /**
+         * Userメソッド内のidを見る
+         */
         User actual = User.findById(id);
-        //idとDBに保存されている値が等しいか確認
+        /**
+         * idとDBに保存されている値が等しいか確認
+         */
         assertThat(actual.id).isEqualTo(209));
     }
     
     @Test
     public void findByName() {
-        //start(fakeApplication(inMemoryDatabase()));
         User user = new User();
-        //user.save();
         
         User actual = User.findById(name);
         assertThat(actual.name).isEqualTo(yamamoto));
@@ -62,11 +70,17 @@ public class UserTest {
     
     @Test
     public void findByPass() {
-        //start(fakeApplication(inMemoryDatabase()));
         User user = new User();
-        //user.save();
         
         User actual = User.findById(pass);
         assertThat(actual.pass).isEqualTo(aaa));
     }
+    
+//    @Test
+//    public void RightParamTest() {
+//        Map<String,String> map = new HashMap<String,String>();
+//        map.put("209", "yamamoto");
+//        Form<User> form = form(User.class).bind(map);
+//        assertThat(form.hasErrors()).isFalse();
+//    }
 }
