@@ -75,12 +75,5 @@ public class UserTest {
         User actual = User.findById(pass);
         assertThat(actual.pass).isEqualTo(aaa));
     }
-    
-//    @Test
-//    public void RightParamTest() {
-//        Map<String,String> map = new HashMap<String,String>();
-//        map.put("209", "yamamoto");
-//        Form<User> form = form(User.class).bind(map);
-//        assertThat(form.hasErrors()).isFalse();
-//    }
+ 
 }

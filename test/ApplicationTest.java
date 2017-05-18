@@ -26,20 +26,6 @@ import static org.fest.assertions.Assertions.*;
 *
 */
 public class ApplicationTest {
-
-    @Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
-    }
-    
-    @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
-    }
-    
     
     /**
      * ログイン画面表示
@@ -47,13 +33,13 @@ public class ApplicationTest {
      * 　失敗したらエラー表示
      */
     @Test
-    public void testLoginRender() {
-        Content html = views.html.loginrender.render();
+    public void testLoginPage() {
+        Content html = views.html.loginpage.render();
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LoginPage");
-        assertThat(contentAsString(html)).contains("ID");
+        assertThat(contentAsString(html)).contains("UserId");
         assertThat(contentAsString(html)).contains("UserName");
-        assertThat(contentAsString(html)).contains("Password");
+        assertThat(contentAsString(html)).contains("PassWord");
         /**
          * 新規登録画面へ遷移するコメント表示
          */
