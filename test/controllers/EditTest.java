@@ -28,7 +28,7 @@ import static org.fest.assertions.Assertions.*;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class UserTest {
+public class EditTest {
 
     @Test
     public void simpleCheck() {
@@ -42,6 +42,7 @@ public class UserTest {
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Your new application is ready.");
     }
+    
     
     
     
