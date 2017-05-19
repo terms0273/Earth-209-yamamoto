@@ -1,0 +1,15 @@
+
+@import helper._
+
+<!--メインページ画面-->
+
+@main("MainPage") {
+    <legend class="uk-legend uk-margin uk-large-left uk-margin-top">MainPage</legend>
+    <!--編集画面へ遷移-->
+    <button class="uk-button uk-button-primary uk-margin-xlarge-left uk-margin-top" onclick="location.href='@routes.EditController.edit'">EDIT</button>
+    <!--登録画面へ遷移-->
+    <button class="uk-button uk-button-primary uk-margin-xlarge-left uk-margin-top" onclick="location.href='@routes.SigninController.signin'">Signin</button>
+    <!--ログアウトし、ログイン画面へ遷移-->
+    <button class="uk-button uk-button-primary uk-margin-xlarge-left uk-margin-top" onclick="location.href='@routes.LoginController.login'">Logout</button>
+
+}

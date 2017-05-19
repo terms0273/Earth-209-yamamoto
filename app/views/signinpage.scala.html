@@ -1,0 +1,26 @@
+@(registerForm: Form[models.User])
+@import helper._
+
+<!--登録画面表示-->
+@main("Signin") {
+    <legend class="uk-legend uk-margin uk-large-left uk-margin-top">Signin</legend>
+    @form(action = routes.UserController.create){
+        @inputText(
+        field = registerForm("userid"),
+        '_label -> "USER ID",
+        '_class -> "uk-margin-xlarge-left uk-margin-top"
+        )
+        @inputText(
+        field = registerForm("username"),
+        '_label -> "USER NAME",
+        '_class -> "uk-margin-xlarge-left uk-margin-top"
+        )
+        @inputPassword(
+        field = registerForm("password"),
+        '_label -> "PASSWORD",
+        '_class -> "uk-margin-xlarge-left uk-margin-top"
+        )
+    
+        <input type="submit" value="Create" class="uk-button uk-button-primary uk-margin-xlarge-left uk-margin-top">
+    }  
+}

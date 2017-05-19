@@ -12,16 +12,12 @@ import static play.mvc.Results.ok;
 import views.html.*;
 
 /**
- *
+ *メインページへ反映させる
  * @author a-yamamoto
  */
-/**
- * ログアウト画面へ反映
- * @author a-yamamoto
- */
-public class LogoutController extends Controller{
-    public static Result doLogout() {
-        return ok(logoutpage.render());
+public class MainPageController extends Controller {
+    public static Result mainpage() {
+        return ok(mainpage.render());
     }
     
 }
