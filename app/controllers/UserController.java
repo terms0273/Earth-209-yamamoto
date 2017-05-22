@@ -31,8 +31,8 @@ public class UserController extends Controller{
     public static Result create(){
         Form<User> form = new Form(User.class).bindFromRequest();
         if(!form.hasErrors()){
-            User requesttask = form.get();
-            requesttask.save();
+            User requestuser = form.get();
+            requestuser.save();
             return redirect(routes.UserController.index());
         }else{
             JFrame frame = new JFrame();
@@ -40,28 +40,28 @@ public class UserController extends Controller{
             return redirect(routes.UserController.index());
         }
     }
-    
-    public static Result update(){
-            Form<User> form = new Form(User.class).bindFromRequest();
-            if(!form.hasErrors()){
-                User requesttask = form.get();
-                requesttask.update();
-                return redirect(routes.UserController.index());
-            }else{
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, "正しく入力してください。");
-                return redirect(routes.UserController.index());           
-            }
-        }
-    
+//    
+//    public static Result update(){
+//            Form<User> form = new Form(User.class).bindFromRequest();
+//            if(!form.hasErrors()){
+//                User requesttask = form.get();
+//                requesttask.update();
+//                return redirect(routes.UserController.index());
+//            }else{
+//                JFrame frame = new JFrame();
+//                JOptionPane.showMessageDialog(frame, "正しく入力してください。");
+//                return redirect(routes.UserController.index());           
+//            }
+//        }
+//    
     //削除
         public static Result delete(Long id){
             JFrame frame = new JFrame();
             int option = JOptionPane.showConfirmDialog(frame,
                     "本当に削除しますか？", "削除の確認", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if(option == 0){
-                User requesttask = User.find.byId(id);
-                requesttask.delete();
+                User requestuser = User.find.byId(id);
+                requestuser.delete();
             }
             return redirect(routes.UserController.index());
         }
