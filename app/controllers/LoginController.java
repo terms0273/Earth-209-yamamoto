@@ -5,7 +5,6 @@
  */
 package controllers;
 
-import static controllers.LoginController.login;
 import dto.LoginUser;
 import models.User;
 import play.data.Form;
@@ -25,6 +24,12 @@ public class LoginController extends Controller{
         Form<LoginUser> form = new Form(LoginUser.class);
         return ok(loginpage.render(form));
     }
+    
+  public static void setSession(User user){
+    session("userid",user.userid);
+    session("username",user.username);
+}
+    
     /**
      * ログインボタンを押すと呼ばれる
      * メインページへ遷移する
@@ -33,14 +38,18 @@ public class LoginController extends Controller{
     public static Result doLogin() {
         Form<LoginUser> form = new Form(LoginUser.class).bindFromRequest();
         LoginUser requestuser = form.get();
+        //DBに保存されている値の中に入力されたuseridと一致するものがあるか調べる
         User user = User.find.where().eq("userid",requestuser.userid).findUnique();
         if(user != null){
-            User userPass = User.find.where().eq("password", requestuser.password).findUnique();
-            if(userPass != null){
+            if(user.password.equals(requestuser.password)){
+                //ログイン可能時useridの値をsessionに保存したい
+                setSession(user);
                 return redirect(routes.MainPageController.mainpage());
             }
+            flash("error","IDかPasswordもしくはその両方が間違っています。");
             return redirect(routes.LoginController.login());
         }
+        flash("error","IDかPasswordもしくはその両方が間違っています。");
         return redirect(routes.LoginController.login());
     }
     

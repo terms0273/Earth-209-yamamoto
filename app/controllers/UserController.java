@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import dto.LoginUser;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,18 +29,25 @@ public class UserController extends Controller{
     }
     
     //データベースに入力情報を登録
-    public static Result create(){
-        Form<User> form = new Form(User.class).bindFromRequest();
-        if(!form.hasErrors()){
-            User requestuser = form.get();
-            requestuser.save();
-            return redirect(routes.UserController.index());
-        }else{
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "正しく入力してください。");
-            return redirect(routes.UserController.index());
-        }
-    }
+//    public static Result create(){
+//        Form<User> form = new Form(User.class).bindFromRequest();
+//        User requestuser = form.get();
+//        User user = User.find.where().eq("userid",requestuser.userid).findUnique();
+//        
+//        if(form.hasErrors()){
+//            return redirect(routes.SigninController.signin());
+//        }else if(user == null){
+//                requestuser.save();
+//                return redirect(routes.UserController.index());
+//        }else{
+//            JFrame frame = new JFrame();
+//            JOptionPane.showMessageDialog(frame, "既に存在するIDです。");
+//            return redirect(routes.SigninController.signin());
+//            }
+//        }
+
+    
+    
 //    
 //    public static Result update(){
 //            Form<User> form = new Form(User.class).bindFromRequest();
@@ -65,6 +73,8 @@ public class UserController extends Controller{
             }
             return redirect(routes.UserController.index());
         }
-  
 }
+
+  
+
 

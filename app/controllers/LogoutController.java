@@ -21,6 +21,12 @@ import views.html.*;
  */
 public class LogoutController extends Controller{
     public static Result doLogout() {
+        String mySession = session("userid");
+        if(mySession == null){
+            return redirect(routes.LoginController.login());
+        }else{
+            session().clear();
+        }
         return ok(logoutpage.render());
     }
     

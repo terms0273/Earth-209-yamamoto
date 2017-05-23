@@ -5,8 +5,7 @@
  */
 package controllers;
 
-import models.User;
-import play.data.Form;
+import org.hibernate.validator.internal.util.ConcurrentReferenceHashMap.Option;
 import play.mvc.*;
 import static play.mvc.Results.ok;
 import views.html.*;
@@ -17,7 +16,12 @@ import views.html.*;
  */
 public class MainPageController extends Controller {
     public static Result mainpage() {
-        return ok(mainpage.render());
+        String mySession = session("userid");
+        if(mySession == null){
+            return redirect(routes.LoginController.login());
+        }else{
+            return ok(mainpage.render());
+        }
     }
     
 }

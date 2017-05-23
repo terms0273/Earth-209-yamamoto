@@ -4,9 +4,9 @@
 <!--編集画面(ユーザーID、ユーザー名)-->
 @main("Edit") {
     <legend class="uk-legend uk-margin uk-large-left uk-margin-top">USER EDIT</legend>
-    @form(action = routes.MainPageController.mainpage){
+    @form(action = routes.EditController.userUpdate){
         @inputText(
-        field = registerForm("user id"),
+        field = registerForm("userid"),
         '_label -> "USER ID",
         '_class -> "uk-margin-xlarge-left uk-margin-top"
         )
@@ -15,30 +15,31 @@
         '_label -> "USER NAME",
         '_class -> "uk-margin-xlarge-left uk-margin-top"
         )
-    <button class="uk-button uk-button-primary uk-margin-xlarge-left uk-margin-top" onclick="location.href='@routes.MainPageController.mainpage'">Update</button>
+    <input type="submit" value="Update">
     }
  
 <!--編集画面(パスワード)-->    
 <legend class="uk-legend uk-margin uk-large-left uk-margin-top">PASSWORD EDIT</legend>
-    @form(action = routes.MainPageController.mainpage){    
+    @form(action = routes.EditController.passUpdate){    
         @inputPassword(
-        field = registerForm("password"),
+        field = registerForm("oldPass"),
         '_label -> "OLD PASSWORD",
         '_class -> "uk-margin-xlarge-left uk-margin-top"
         )
         @inputPassword(
-        field = registerForm("password"),
+        field = registerForm("newPass"),
         '_label -> "NEW PASSWORD",
         '_class -> "uk-margin-xlarge-left uk-margin-top"
         )
         @inputPassword(
-        field = registerForm("password"),
+        field = registerForm("confirmNewPass"),
         '_label -> "CONFIRM NEW PASSWORD",
         '_class -> "uk-margin-xlarge-left uk-margin-top"
         )
     
-    <button class="uk-button uk-button-primary uk-margin-xlarge-left uk-margin-top" onclick="location.href='@routes.MainPageController.mainpage'">Update</button>
+    <input type="submit" value="Update">
     }
+    <p>@flash.get("disagreement")</p>
     
-    <button class="uk-button-danger uk-botton-small">DELETE</button>
+    <!--<button class="uk-button-danger uk-botton-small">DELETE</button>-->
 }

@@ -4,7 +4,7 @@
 <!--登録画面表示-->
 @main("Signin") {
     <legend class="uk-legend uk-margin uk-large-left uk-margin-top">Signin</legend>
-    @form(action = routes.UserController.create){
+    @form(action = routes.SigninController.create){
         @inputText(
         field = registerForm("userid"),
         '_label -> "USER ID",
