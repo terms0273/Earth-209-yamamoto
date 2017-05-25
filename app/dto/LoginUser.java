@@ -13,4 +13,5 @@ package dto;
 public class LoginUser {
     public String userid;
     public String password;
+    public boolean deleteFlag;
 }

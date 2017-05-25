@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import Authenticator.Secured;
 import org.hibernate.validator.internal.util.ConcurrentReferenceHashMap.Option;
 import play.mvc.*;
 import static play.mvc.Results.ok;
@@ -15,13 +16,14 @@ import views.html.*;
  * @author a-yamamoto
  */
 public class MainPageController extends Controller {
+    @Security.Authenticated(Secured.class)
     public static Result mainpage() {
-        String mySession = session("userid");
-        if(mySession == null){
-            return redirect(routes.LoginController.login());
-        }else{
+//        String mySession = session("userid");
+//        if(mySession == null){
+//            return redirect(routes.LoginController.login());
+//        }else{
             return ok(mainpage.render());
-        }
+//        }
     }
     
 }

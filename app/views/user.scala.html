@@ -2,6 +2,7 @@
 
 
 @main("UserList"){
+
 <header id="header">
     <h1 class="uk-headeing-primary uk-text-muted"></h1>
 </header>
@@ -18,12 +19,14 @@
         
         <tbody>
             @for(user <- users){
+                @if(user.deleteFlag == false){
             <tr>
                 <td>@user.userid</td>
                 <td>@user.username</td>
 
                 <td><button class="uk-button-danger uk-botton-small" onclick="location.href='@routes.UserController.delete(user.id)'">DELETE</button></td>                
             </tr>
+            }
             }
         </tbody>
     </table>

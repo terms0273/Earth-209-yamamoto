@@ -5,8 +5,8 @@
  */
 package controllers;
 
+import Authenticator.Secured;
 import models.User;
-import play.data.Form;
 import play.mvc.*;
 import static play.mvc.Results.ok;
 import views.html.*;
@@ -20,14 +20,23 @@ import views.html.*;
  * @author a-yamamoto
  */
 public class LogoutController extends Controller{
+    
+    //session破棄のメソッド
+    public static void clearSession(){
+        session().clear();
+    }
+    
+    @Security.Authenticated(Secured.class)
     public static Result doLogout() {
         String mySession = session("userid");
-        if(mySession == null){
+//        if(mySession == null){
+//            return redirect(routes.LoginController.login());
+//        }else{
+//            clearSession();
             return redirect(routes.LoginController.login());
-        }else{
-            session().clear();
         }
-        return ok(logoutpage.render());
-    }
+//    }
+    
+  
     
 }

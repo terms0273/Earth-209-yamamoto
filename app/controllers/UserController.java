@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import Authenticator.AdminSecured;
 import dto.LoginUser;
 import java.util.List;
 import javax.swing.JFrame;
@@ -20,6 +21,8 @@ import views.html.*;
  * @author a-yamamoto
  */
 public class UserController extends Controller{
+    //権限のチェック
+    @Security.Authenticated(AdminSecured.class)
     //ルートにアクセスした際のAction
     public static Result index() {
         //DBからデータをすべて取り出す
@@ -28,48 +31,17 @@ public class UserController extends Controller{
         return ok(user.render(users));
     }
     
-    //データベースに入力情報を登録
-//    public static Result create(){
-//        Form<User> form = new Form(User.class).bindFromRequest();
-//        User requestuser = form.get();
-//        User user = User.find.where().eq("userid",requestuser.userid).findUnique();
-//        
-//        if(form.hasErrors()){
-//            return redirect(routes.SigninController.signin());
-//        }else if(user == null){
-//                requestuser.save();
-//                return redirect(routes.UserController.index());
-//        }else{
-//            JFrame frame = new JFrame();
-//            JOptionPane.showMessageDialog(frame, "既に存在するIDです。");
-//            return redirect(routes.SigninController.signin());
-//            }
-//        }
-
-    
-    
-//    
-//    public static Result update(){
-//            Form<User> form = new Form(User.class).bindFromRequest();
-//            if(!form.hasErrors()){
-//                User requesttask = form.get();
-//                requesttask.update();
-//                return redirect(routes.UserController.index());
-//            }else{
-//                JFrame frame = new JFrame();
-//                JOptionPane.showMessageDialog(frame, "正しく入力してください。");
-//                return redirect(routes.UserController.index());           
-//            }
-//        }
-//    
     //削除
+    //権限のチェック
+    @Security.Authenticated(AdminSecured.class)
         public static Result delete(Long id){
             JFrame frame = new JFrame();
             int option = JOptionPane.showConfirmDialog(frame,
                     "本当に削除しますか？", "削除の確認", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if(option == 0){
                 User requestuser = User.find.byId(id);
-                requestuser.delete();
+                requestuser.deleteFlag = true;
+                requestuser.update();
             }
             return redirect(routes.UserController.index());
         }

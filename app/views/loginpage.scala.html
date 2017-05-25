@@ -6,6 +6,7 @@
 @main("Login") {
     <legend class="uk-legend uk-margin uk-large-left uk-margin-top">LoginPage</legend>
         @form(action = routes.LoginController.doLogin){
+        @CSRF.formField
             @inputText(
             field = registerForm("userid"),
             '_label -> "USER NAME",

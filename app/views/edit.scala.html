@@ -5,6 +5,7 @@
 @main("Edit") {
     <legend class="uk-legend uk-margin uk-large-left uk-margin-top">USER EDIT</legend>
     @form(action = routes.EditController.userUpdate){
+        @CSRF.formField
         @inputText(
         field = registerForm("userid"),
         '_label -> "USER ID",
@@ -20,7 +21,8 @@
  
 <!--編集画面(パスワード)-->    
 <legend class="uk-legend uk-margin uk-large-left uk-margin-top">PASSWORD EDIT</legend>
-    @form(action = routes.EditController.passUpdate){    
+    @form(action = routes.EditController.passUpdate){ 
+        @CSRF.formField
         @inputPassword(
         field = registerForm("oldPass"),
         '_label -> "OLD PASSWORD",

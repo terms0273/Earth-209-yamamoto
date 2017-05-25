@@ -1,5 +1,6 @@
 package controllers;
 
+import Authenticator.Secured;
 import dto.EditPass;
 import dto.EditUser;
 import javax.swing.JFrame;
@@ -16,16 +17,18 @@ public class EditController extends Controller {
      * ユーザー編集画面へ遷移
      * @return 
      */
+    @Security.Authenticated(Secured.class)
     public static Result edit() {
-        String mySession = session("userid");
-        if(mySession == null){
-            return redirect(routes.LoginController.login());
-        }else{
+//        String mySession = session("userid");
+//        if(mySession == null){
+//            return redirect(routes.LoginController.login());
+//        }else{
             Form<User> form = new Form(User.class);
             return ok(edit.render(form));
-        }
+//        }
     }
         
+    @Security.Authenticated(Secured.class)
     public static Result userUpdate(){
             Form<EditUser> form = new Form(EditUser.class).bindFromRequest();
             if(!form.hasErrors()){
@@ -41,6 +44,7 @@ public class EditController extends Controller {
             }
     }
     
+    @Security.Authenticated(Secured.class)
     public static Result passUpdate(){
         Form<EditPass> form = new Form(EditPass.class).bindFromRequest();
         User requestpass = User.find.where().eq("userid",session("userid")).findUnique();
