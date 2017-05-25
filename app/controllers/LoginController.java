@@ -30,7 +30,7 @@ public class LoginController extends Controller{
      * sessionに保存したい値
      * @param user 
      */
-  public static void setSession(User user){
+  private static void setSession(User user){
     session("userid",user.userid);
     session("username",user.username);
     session("type",user.type.toString());
@@ -52,8 +52,9 @@ public class LoginController extends Controller{
          */
         if(user.deleteFlag == false){
             if(user != null){
+                //パスワードの暗号化
                 if(BCrypt.checkpw(requestuser.password, user.password)){
-                //ログイン可能時useridの値をsessionに保存したい
+                //ログイン可能時useridの値をsessionに保存する
                 setSession(user);
                 return redirect(routes.MainPageController.mainpage());
                 }

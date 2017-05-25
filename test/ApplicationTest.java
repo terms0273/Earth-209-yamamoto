@@ -1,22 +1,13 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import dto.LoginUser;
+import models.User;
 import org.junit.*;
 
 import play.mvc.*;
-import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
-import play.libs.F.*;
 
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
+import play.data.Form;
+import views.html.user;
 
 
 /**
@@ -34,16 +25,13 @@ public class ApplicationTest {
      */
     @Test
     public void testLoginPage() {
-        Content html = views.html.loginpage.render();
+        Form<LoginUser> form = new Form(LoginUser.class);
+        Content html = views.html.loginpage.render(form);
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LoginPage");
-        assertThat(contentAsString(html)).contains("UserId");
-        assertThat(contentAsString(html)).contains("UserName");
-        assertThat(contentAsString(html)).contains("PassWord");
-        /**
-         * 新規登録画面へ遷移するコメント表示
-         */
-        assertThat(contentAsString(html)).contains("SignUp");
+        assertThat(contentAsString(html)).contains("USER NAME");
+        assertThat(contentAsString(html)).contains("PASSWORD");
+
     }
     
     /**
@@ -54,7 +42,7 @@ public class ApplicationTest {
     public void testLogoutPage() {
         Content html = views.html.logoutpage.render();
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("LogoutPage");
+        assertThat(contentAsString(html)).contains("Logout");
     }
     
     /**
@@ -62,13 +50,15 @@ public class ApplicationTest {
      *  ID,UserName,Passwordの入力フォーム表示
      */
     @Test
-    public void testSignUpPage() {
-        Content html = views.html.signuppage.render();
+    public void testSigninPage() {
+        Form<User> form = new Form(User.class);
+        Content html = views.html.signinpage.render(form);
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("SignUpPage");
-        assertThat(contentAsString(html)).contains("ID");
-        assertThat(contentAsString(html)).contains("UserName");
-        assertThat(contentAsString(html)).contains("Password");
+        assertThat(contentAsString(html)).contains("Signin");
+        assertThat(contentAsString(html)).contains("userid");
+        assertThat(contentAsString(html)).contains("username");
+        assertThat(contentAsString(html)).contains("password");
+        assertThat(contentAsString(html)).contains("type");
     }
     
     /**
@@ -76,12 +66,18 @@ public class ApplicationTest {
      */
     @Test
     public void testEditPage() {
-        Content html = views.html.editpage.render();
+        Form<User> form = new Form(User.class);
+        Content html = views.html.edit.render(form);
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("EditPage");
-        assertThat(contentAsString(html)).contains("ID");
-        assertThat(contentAsString(html)).contains("UserName");
+        assertThat(contentAsString(html)).contains("USER EDIT");
+        assertThat(contentAsString(html)).contains("userid");
+        assertThat(contentAsString(html)).contains("username");
+        //パスワード変更
+        assertThat(contentAsString(html)).contains("oldPass");
+        assertThat(contentAsString(html)).contains("newPass");
+        assertThat(contentAsString(html)).contains("confirmNewPass");
     }
+}
     
     /**
      * ユーザー編集画面表示(パスワード)
@@ -89,14 +85,15 @@ public class ApplicationTest {
      * 　新規のパスワード２回
      * 　入力するフォームを表示
      */
-    @Test
-    public void testEditPassPage() {
-        Content html = views.html.editpasspage.render();
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("EditpassPage");
-        assertThat(contentAsString(html)).contains("OldPassword");
-        assertThat(contentAsString(html)).contains("NewPassword");
-        assertThat(contentAsString(html)).contains("again");
-    }
-
-}
+    
+//    @Test
+//    public void testEditPassPage() {
+//        Form<User> form = new Form(User.class);
+//        Content html = views.html.edit.render(form);
+//        assertThat(contentType(html)).isEqualTo("text/html");
+//        assertThat(contentAsString(html)).contains("oldPass");
+//        assertThat(contentAsString(html)).contains("newPass");
+//        assertThat(contentAsString(html)).contains("confirmNewPass");
+//    }
+//
+//}

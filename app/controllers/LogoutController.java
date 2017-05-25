@@ -22,7 +22,7 @@ import views.html.*;
 public class LogoutController extends Controller{
     
     //session破棄のメソッド
-    public static void clearSession(){
+    private static void clearSession(){
         session().clear();
     }
     

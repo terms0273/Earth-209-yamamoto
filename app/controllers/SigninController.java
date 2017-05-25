@@ -18,16 +18,16 @@ import org.mindrot.jbcrypt.BCrypt;
 public class SigninController extends Controller{
     @Security.Authenticated(Secured.class)
     public static Result signin() {
-//        String mySession = session("userid");
-//        if(mySession == null){
-//            return redirect(routes.LoginController.login());
-//        }else{
+
             Form<User> form = new Form(User.class);
             return ok(signinpage.render(form));
 //        }
     }
     
-    //データベースに入力情報を登録
+    /**
+     * データベースに入力情報を登録
+     * @return 
+     */
     @Security.Authenticated(Secured.class)
     public static Result create(){
         Form<User> form = new Form(User.class).bindFromRequest();
@@ -36,8 +36,12 @@ public class SigninController extends Controller{
         if(form.hasErrors()){
             return redirect(routes.SigninController.signin());
         }
-        //暗号化
+        /**
+         * 暗号化
+         */
+        //同じユーザー情報がないか確認
         else if(User.find.where().eq("userid",requestuser.userid).findRowCount() == 0){
+            //パスワードをハッシュ化
             String hashedPassword = BCrypt.hashpw(requestuser.password,BCrypt.gensalt());
             requestuser.password = hashedPassword;
             requestuser.save();
