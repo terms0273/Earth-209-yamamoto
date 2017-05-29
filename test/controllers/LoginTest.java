@@ -1,25 +1,18 @@
 package controllers;
 
 //import .*;
-import java.util.ArrayList;
+import apps.FakeApp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import models.User;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.*;
 
 import play.mvc.*;
-import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
-import play.libs.F.*;
 
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
+import play.data.Form;
 
 
 /**
@@ -28,16 +21,50 @@ import static org.fest.assertions.Assertions.*;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class LoginTest {
-
+public class LoginTest extends FakeApp{
+    
+  @Before
+  public void setUpTest() {
+    start(fakeApplication(inMemoryDatabase()));
+  }
+  
     /**
-     * ログインを表示させるメソッド
+     * ログイン成功時、ログイン画面へ遷移
+     * かつ、sessionに値が入るか
      */
+    @Test
+    public void LoginSuccessTest() {
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("userid","209");
+        params.put("password","aaaaa");
+        
+        Result result = route(fakeRequest(POST,"/login").withFormUrlEncodedBody(params));
+        assertThat(status(result)).isEqualTo(SEE_OTHER);
+        assertThat(redirectLocation(result)).isEqualTo("/login");
+        
+        assertThat(session(result)).isNotNull();
+    } 
     
-//    public void testLoginController() {
-//        Result result = route(LoginController(POST,"/"));
+//    @Test
+//    public void testLoginError() {
 //        
+//        Map<String,String> params = new HashMap<String,String>();
+//        params.put("userId","209");
+//        params.put("password","aaaaa");
+//        
+//        Result result = route(fakeRequest(POST,"/doLogin").withFormUrlEncodedBody(params));
+//        Form<User> form = new Form(User.class).bindFromRequest();
+//        User getUser = form.get();
+//        assertThat(getUser.userid()).isEmpty();
+//        assertThat(getUser.password()).isEmpty();
+//        
+//        assertThat(status(result)).isEqualTo(BAD_REQUEST);
+//        assertThat(redirectLocation(result)).isEqualTo("/login");
+//        assertThat(contentAsString(result)).contains("IDかPasswordまたはその両方が間違っています");
+//        assertThat(session(result)).isNull();
 //    }
+        
+   }
     
     
     
@@ -45,5 +72,4 @@ public class LoginTest {
     
     
     
-    
-}
+  
